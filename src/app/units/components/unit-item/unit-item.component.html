@@ -1,0 +1,34 @@
+<nz-card [nzTitle]="unit.name" [nzExtra]="extraTemplate">
+  <div nz-card-grid [ngStyle]="gridStyle" [nzHoverable]="false">
+    <span>
+      <i nz-icon nzType="heart" nzTheme="twotone" [nzTwotoneColor]="'#eb2f96'"></i>
+    </span>
+    <span class="mr-4">{{ unit.hit_points }}</span>
+
+    <ng-container *ngIf="unit.mana">
+      <span>
+        <i nz-icon nzType="heart" nzTheme="twotone"></i>
+      </span>
+      <span>{{ unit.mana }}</span>
+    </ng-container>
+
+    <span>
+      <img src="assets/defense_{{ unit.defense_type }}.png" />
+    </span>
+  </div>
+  <div nz-card-grid [ngStyle]="gridStyle" [nzHoverable]="false">
+    <span>
+      <i nz-icon nzType="fire" nzTheme="twotone"></i>
+    </span>
+    <span class="mr-4">{{ unit.base_min_hit }}&nbsp;-&nbsp;{{ unit.base_max_hit }}</span>
+
+    <span>
+      <img src="assets/attack_{{ unit.attack_type }}.png" />
+    </span>
+  </div>
+</nz-card>
+
+<ng-template #extraTemplate>
+  <span><i nz-icon nzType="dollar" nzTheme="twotone" [nzTwotoneColor]="'#FFD700'"></i></span>
+  <span>{{ unit.gold_cost }}</span>
+</ng-template>
