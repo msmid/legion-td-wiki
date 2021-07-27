@@ -9,6 +9,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 import { UnitsModule } from '../units/units.module';
 import { FormsModule } from '@angular/forms';
@@ -24,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     NzBreadCrumbModule,
     NzGridModule,
     NzInputModule,
+    NzSelectModule,
     UnitsModule,
   ],
 })

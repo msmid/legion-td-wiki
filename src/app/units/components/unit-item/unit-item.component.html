@@ -1,34 +1,89 @@
 <nz-card [nzTitle]="unit.name" [nzExtra]="extraTemplate">
-  <div nz-card-grid [ngStyle]="gridStyle" [nzHoverable]="false">
-    <span>
-      <i nz-icon nzType="heart" nzTheme="twotone" [nzTwotoneColor]="'#eb2f96'"></i>
-    </span>
-    <span class="mr-4">{{ unit.hit_points }}</span>
-
-    <ng-container *ngIf="unit.mana">
+  <div nz-card-grid class="row" [nzHoverable]="false">
+    <div>
       <span>
-        <i nz-icon nzType="heart" nzTheme="twotone"></i>
+        <i nz-icon nzType="heart" nzTheme="twotone" [nzTwotoneColor]="'#eb2f96'"></i>
       </span>
-      <span>{{ unit.mana }}</span>
-    </ng-container>
+      <span class="mr-4">{{ unit.hit_points }}</span>
 
-    <span>
-      <img src="assets/defense_{{ unit.defense_type }}.png" />
-    </span>
+      <ng-container *ngIf="unit.mana">
+        <span>
+          <i nz-icon nzType="heart" nzTheme="twotone"></i>
+        </span>
+        <span>{{ unit.mana }}</span>
+      </ng-container>
+    </div>
+
+    <div>
+      <ng-container *ngTemplateOutlet="defense"></ng-container>
+    </div>
   </div>
-  <div nz-card-grid [ngStyle]="gridStyle" [nzHoverable]="false">
+
+  <div nz-card-grid class="row" [nzHoverable]="false">
+    <div>
+      <span>
+        <i nz-icon nzType="thunderbolt" nzTheme="twotone" [nzTwotoneColor]="'#eb2f96'"></i>
+      </span>
+      <span class="mr-4">{{ unit.base_min_hit }}&nbsp;-&nbsp;{{ unit.base_max_hit }}</span>
+    </div>
+
+    <div>
+      <ng-container *ngTemplateOutlet="attack"></ng-container>
+    </div>
+  </div>
+
+  <div nz-card-grid class="row" [nzHoverable]="false">
+    <div>
+      <span class="text-capitalize">{{ unit.attack_speed_class }}&nbsp;({{ unit.attack_speed }})</span>
+    </div>
+
+    <div>
+      <span class="text-capitalize">{{ unit.melee_or_ranged }}&nbsp;({{ unit.range }})</span>
+    </div>
+  </div>
+
+  <div *ngIf="unit.abilities" nz-card-grid [ngStyle]="gridStyle" [nzHoverable]="false">
     <span>
       <i nz-icon nzType="fire" nzTheme="twotone"></i>
     </span>
-    <span class="mr-4">{{ unit.base_min_hit }}&nbsp;-&nbsp;{{ unit.base_max_hit }}</span>
-
-    <span>
-      <img src="assets/attack_{{ unit.attack_type }}.png" />
+    <span *ngFor="let ability of unit.abilities; let i = index" class="mr-2">
+      <nz-tag
+        class="text-capitalize"
+        nzColor="default"
+        nz-tooltip
+        [nzTooltipTitle]="unit.ability_description[i]"
+        >{{ ability }}</nz-tag
+      >
     </span>
   </div>
 </nz-card>
 
+<ng-template #attack>
+  <img nz-tooltip [nzTooltipTitle]="tooltip" src="assets/attack_{{ unit.attack_type }}.png" />
+
+  <ng-template #tooltip>
+    <span class="d-block">{{ unit.attack_type }}</span>
+    <hr />
+    <span *ngFor="let armor of unit.attack_effectiveness_order" class="d-block">
+      {{ armor }}&nbsp;{{ attackMatrix[unit.attack_type][armor] }}%
+    </span>
+  </ng-template>
+</ng-template>
+
+<ng-template #defense>
+  <img nz-tooltip [nzTooltipTitle]="tooltip" src="assets/defense_{{ unit.defense_type }}.png" />
+
+  <ng-template #tooltip>
+    <span class="d-block">{{ unit.defense_type }}</span>
+    <hr />
+    <span *ngFor="let attack of unit.defense_effectiveness_order" class="d-block">
+      {{ attack }}&nbsp;{{ attackMatrix[attack][unit.defense_type] }}%
+    </span>
+  </ng-template>
+</ng-template>
+
 <ng-template #extraTemplate>
   <span><i nz-icon nzType="dollar" nzTheme="twotone" [nzTwotoneColor]="'#FFD700'"></i></span>
   <span>{{ unit.gold_cost }}</span>
+  <span>&nbsp;({{ unit.food_cost }})</span>
 </ng-template>

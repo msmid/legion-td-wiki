@@ -1,17 +1,39 @@
 <div class="mb-4" nz-row>
-  <nz-input-group [nzSuffix]="suffixIconSearch">
-    <input [(ngModel)]="searchKey" (ngModelChange)="handleSearch()" type="text" nz-input placeholder="Search by name" />
+  <nz-input-group nzCompact>
+    <input
+      [(ngModel)]="searchKey"
+      (ngModelChange)="handleSearch()"
+      type="text"
+      nz-input
+      placeholder="Search by name"
+    />
+    <nz-select
+      [(ngModel)]="selectedBuilders"
+      (ngModelChange)="handleSearch()"
+      nzSize="default"
+      nzMode="tags"
+      nzPlaceHolder="Search by builder"
+    >
+      <nz-option
+        *ngFor="let builder of builders"
+        [nzLabel]="builder"
+        [nzValue]="builder"
+      ></nz-option>
+    </nz-select>
   </nz-input-group>
-  <ng-template #suffixIconSearch>
-    <i nz-icon nzType="search" nzTheme="twotone" nzTwotone="'#000'"></i>
-  </ng-template>
 </div>
 
-<div nz-row [nzGutter]="[{ xs: 8, sm: 16, md: 24, lg: 32 }, { xs: 8, sm: 16, md: 24, lg: 32 }]">
-  <ng-container *ngFor="let unit of units">
-    <div nz-col class="gutter-row" nzXs="24" nzSm="12" nzMd="8" nzLg="6" nzXl="6" [nzSpan]="6">
+<div
+  nz-row
+  [nzGutter]="[
+    { xs: 8, sm: 16, md: 24, lg: 32 },
+    { xs: 8, sm: 16, md: 24, lg: 32 }
+  ]"
+>
+  <ng-container *ngFor="let unit of units; let i = index">
+    <div nz-col class="gutter-row" nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="6" [nzSpan]="6">
       <div class="inner-box">
-        <app-unit-item [unit]="unit"></app-unit-item>
+        <app-unit-item [unit]="unit" [index]="i"></app-unit-item>
       </div>
     </div>
   </ng-container>

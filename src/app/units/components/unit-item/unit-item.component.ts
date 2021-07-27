@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ATTACK_EFFECTIVENESS_MATRIX } from '../../constants';
 import { Unit } from '../../unit.interface';
 
 @Component({
@@ -8,6 +9,9 @@ import { Unit } from '../../unit.interface';
 })
 export class UnitItemComponent implements OnInit {
   @Input() unit!: Unit;
+  @Input() index?: number;
+
+  attackMatrix = ATTACK_EFFECTIVENESS_MATRIX;
 
   gridStyle = {
     width: '100%',

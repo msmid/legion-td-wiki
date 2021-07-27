@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import UNITS from '@msmid/legion-td-db/src/units';
+import { BuilderType } from './builder.declarations';
 import { Unit } from './unit.interface';
 
 @Injectable()
@@ -7,7 +8,6 @@ export class DataServiceService {
   private _units: Unit[] = [];
 
   constructor() {
-    console.log(UNITS[0]);
     this.units = UNITS;
   }
 
@@ -27,10 +27,18 @@ export class DataServiceService {
     this.units = UNITS;
   }
 
-  search(key: string): Unit[] {
-    const result = this._units.filter(unit => unit.name.includes(key));
-    this._units = result;
-    console.log(result);
+  search({ key, builders }: { key: string; builders: BuilderType[] }): Unit[] {
+    let result: Unit[] = [];
+
+    if (builders.length > 0) {
+      result = this._units.filter(unit => builders.some(b => b === unit.builder));
+    } else {
+      result = this._units;
+    }
+
+    if (key) {
+      result = result.filter(unit => unit.name.includes(key));
+    }
 
     return result;
   }
