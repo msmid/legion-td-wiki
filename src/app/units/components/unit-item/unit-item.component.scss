@@ -1,4 +1,12 @@
 :host {
+  h3.clickable {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   img {
     height: 1.5rem;
   }

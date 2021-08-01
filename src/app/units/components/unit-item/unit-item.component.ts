@@ -10,6 +10,7 @@ import { Unit } from '../../unit.interface';
 export class UnitItemComponent implements OnInit {
   @Input() unit!: Unit;
   @Input() index?: number;
+  @Input() withModal = true;
 
   attackMatrix = ATTACK_EFFECTIVENESS_MATRIX;
 
@@ -18,7 +19,13 @@ export class UnitItemComponent implements OnInit {
     textAlign: 'left',
   };
 
+  showModal = false;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit() {}
+
+  showDetailModal() {
+    this.showModal = !this.showModal;
+  }
 }

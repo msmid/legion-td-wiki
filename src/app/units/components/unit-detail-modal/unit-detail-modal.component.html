@@ -1,0 +1,26 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  [nzWidth]="760"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzClosable]="false"
+  [nzFooter]="null"
+>
+  <ng-container *nzModalContent>
+    <div nz-row [nzGutter]="[16, 16]">
+      <div nz-col nzSpan="12">
+        <app-unit-item [unit]="unit" [withModal]="false"></app-unit-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <ng-container *ngIf="upgradeUnits && upgradeUnits.length > 0">
+          <ng-container *ngFor="let unit of upgradeUnits">
+            <div class="upgrade-unit-wrapper mb-4">
+              <i nz-icon nzType="caret-right" nzTheme="outline"></i>
+              <app-unit-item [unit]="unit" [withModal]="false"></app-unit-item>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</nz-modal>

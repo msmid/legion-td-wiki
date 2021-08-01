@@ -1,5 +1,28 @@
-<nz-card [nzTitle]="unit.name" [nzExtra]="extraTemplate">
+<nz-card>
   <div nz-card-grid class="row" [nzHoverable]="false">
+    <div>
+      <h3 *ngIf="withModal; else basicTitle" (click)="showDetailModal()" class="text-capitalize clickable">
+        {{ unit.name }}
+      </h3>
+      <ng-template #basicTitle>
+        <h3 class="text-capitalize">
+          {{ unit.name }}
+        </h3>
+      </ng-template>
+    </div>
+
+    <div>
+      <span><i nz-icon nzType="dollar" nzTheme="twotone" [nzTwotoneColor]="'#FFD700'"></i></span>
+      <span>{{ unit.gold_cost }}</span>
+      <span>&nbsp;({{ unit.food_cost }})</span>
+    </div>
+  </div>
+
+  <div nz-card-grid class="row" [nzHoverable]="false">
+    <div>
+      <ng-container *ngTemplateOutlet="defense"></ng-container>
+    </div>
+
     <div>
       <span>
         <i nz-icon nzType="heart" nzTheme="twotone" [nzTwotoneColor]="'#eb2f96'"></i>
@@ -13,28 +36,26 @@
         <span>{{ unit.mana }}</span>
       </ng-container>
     </div>
-
-    <div>
-      <ng-container *ngTemplateOutlet="defense"></ng-container>
-    </div>
   </div>
 
   <div nz-card-grid class="row" [nzHoverable]="false">
+    <div>
+      <ng-container *ngTemplateOutlet="attack"></ng-container>
+    </div>
+
     <div>
       <span>
         <i nz-icon nzType="thunderbolt" nzTheme="twotone" [nzTwotoneColor]="'#eb2f96'"></i>
       </span>
       <span class="mr-4">{{ unit.base_min_hit }}&nbsp;-&nbsp;{{ unit.base_max_hit }}</span>
     </div>
-
-    <div>
-      <ng-container *ngTemplateOutlet="attack"></ng-container>
-    </div>
   </div>
 
   <div nz-card-grid class="row" [nzHoverable]="false">
     <div>
-      <span class="text-capitalize">{{ unit.attack_speed_class }}&nbsp;({{ unit.attack_speed }})</span>
+      <span class="text-capitalize"
+        >{{ unit.attack_speed_class }}&nbsp;({{ unit.attack_speed }})</span
+      >
     </div>
 
     <div>
@@ -82,8 +103,13 @@
   </ng-template>
 </ng-template>
 
-<ng-template #extraTemplate>
+<ng-template #extraHeaderTemp>
   <span><i nz-icon nzType="dollar" nzTheme="twotone" [nzTwotoneColor]="'#FFD700'"></i></span>
   <span>{{ unit.gold_cost }}</span>
   <span>&nbsp;({{ unit.food_cost }})</span>
 </ng-template>
+
+<ng-container *ngIf="withModal">
+  <app-unit-detail-modal [unit]="unit" [(isVisible)]="showModal"></app-unit-detail-modal>
+</ng-container>
+
