@@ -27,7 +27,7 @@ export class DataServiceService {
     this.units = UNITS;
   }
 
-  search({ key, builders }: { key: string; builders: BuilderType[] }): Unit[] {
+  search({ searchTerm, builders }: { searchTerm: string; builders: BuilderType[] }): Unit[] {
     let result: Unit[] = [];
 
     if (builders.length > 0) {
@@ -36,10 +36,16 @@ export class DataServiceService {
       result = this._units;
     }
 
-    if (key) {
-      result = result.filter(unit => unit.name.includes(key));
+    if (searchTerm) {
+      result = result.filter(unit => unit.name.toLowerCase().includes(searchTerm));
     }
 
+    console.log(result);
+
     return result;
+  }
+
+  findUpgrades(unitName: string) {
+    return this._units.find(u => u.name.toLowerCase() === unitName.toLowerCase());
   }
 }

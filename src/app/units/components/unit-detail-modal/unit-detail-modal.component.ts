@@ -26,9 +26,10 @@ export class UnitDetailModalComponent implements OnInit {
     }
 
     this.unit.upgraded_name?.forEach(unit => {
-      const upgrade = this.unitService.search({ key: unit, builders: [] });
-      // Should always return array of one
-      this.upgradeUnits.push(upgrade[0]);
+      const upgrade = this.unitService.findUpgrades(unit);
+      if (upgrade) {
+        this.upgradeUnits.push(upgrade);
+      }
     });
   }
 

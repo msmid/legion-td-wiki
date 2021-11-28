@@ -27,6 +27,9 @@ export class HomeComponent implements OnInit {
       this.units = this.unitService.units;
     }
 
-    this.units = this.unitService.search({ key: this.searchKey, builders: this.selectedBuilders });
+    this.units = this.unitService.search({
+      searchTerm: this.searchKey,
+      builders: this.selectedBuilders,
+    });
   }
 }
