@@ -1,13 +1,6 @@
-<nz-modal
-  [(nzVisible)]="isVisible"
-  [nzWidth]="760"
-  (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()"
-  [nzClosable]="false"
-  [nzFooter]="null"
->
+<div (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
-    <div nz-row [nzGutter]="[16, 16]">
+    <div>
       <div nz-col nzSpan="12">
         <app-unit-item [unit]="unit" [withModal]="false"></app-unit-item>
       </div>
@@ -23,4 +16,4 @@
       </div>
     </div>
   </ng-container>
-</nz-modal>
+</div>
