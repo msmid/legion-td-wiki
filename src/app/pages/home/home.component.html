@@ -1,5 +1,5 @@
 <div class="mb-6" nz-row>
-  <nz-input-group nzCompact>
+  <div>
     <input
       [(ngModel)]="searchKey"
       (ngModelChange)="handleSearch()"
@@ -7,31 +7,15 @@
       nz-input
       placeholder="Search by name"
     />
-    <nz-select
-      [(ngModel)]="selectedBuilders"
-      (ngModelChange)="handleSearch()"
-      nzSize="default"
-      nzMode="tags"
-      nzPlaceHolder="Search by builder"
-    >
-      <nz-option
-        *ngFor="let builder of builders"
-        [nzLabel]="builder"
-        [nzValue]="builder"
-      ></nz-option>
-    </nz-select>
-  </nz-input-group>
+    <select [(ngModel)]="selectedBuilders" (ngModelChange)="handleSearch()">
+      <option *ngFor="let builder of builders" [value]="builder">{{ builder }}</option>
+    </select>
+  </div>
 </div>
 
-<div
-  nz-row
-  [nzGutter]="[
-    { xs: 8, sm: 16, md: 24, lg: 32 },
-    { xs: 8, sm: 16, md: 24, lg: 32 }
-  ]"
->
+<div>
   <ng-container *ngFor="let unit of units; let i = index">
-    <div nz-col class="gutter-row" nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="6" [nzSpan]="6">
+    <div nz-col class="gutter-row" nzXs="24" nzSm="12" nzMd="12" nzLg="8" nzXl="6">
       <div class="inner-box">
         <app-unit-item [unit]="unit" [index]="i"></app-unit-item>
       </div>

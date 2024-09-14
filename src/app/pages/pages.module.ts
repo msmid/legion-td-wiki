@@ -1,32 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
-
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-
-import { PagesRoutingModule } from './pages-routing.module';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NzInputModule } from 'ng-zorro-antd/input';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-
-import { UnitsModule } from '../units/units.module';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { UnitsModule } from '../units/units.module';
+import { HomeComponent } from './home/home.component';
+import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    PagesRoutingModule,
-    NzLayoutModule,
-    NzMenuModule,
-    NzBreadCrumbModule,
-    NzGridModule,
-    NzInputModule,
-    NzSelectModule,
-    UnitsModule,
-  ],
+  imports: [CommonModule, FormsModule, PagesRoutingModule, UnitsModule],
 })
 export class PagesModule {}
