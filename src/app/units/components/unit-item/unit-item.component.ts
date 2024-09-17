@@ -8,7 +8,7 @@ import { Unit } from '../../unit.interface';
   styleUrls: ['./unit-item.component.scss'],
 })
 export class UnitItemComponent implements OnInit {
-  @Input() unit!: Unit;
+  @Input({ required: true }) unit!: Unit;
   @Input() index?: number;
   @Input() withModal = true;
 
@@ -27,5 +27,20 @@ export class UnitItemComponent implements OnInit {
 
   showDetailModal() {
     this.showModal = !this.showModal;
+  }
+
+  getAttackEffectivenessTip(unit: Unit): string {
+    return unit.attack_effectiveness_order
+      .map(armor => `${armor} ${this.attackMatrix[unit.attack_type][armor]}%`)
+      .join(' | ');
+  }
+
+  getDefenseEffectivenessTip(unit: Unit): string {
+    return (
+      unit.defense_effectiveness_order
+        // `[attack]?. because Cannot read properties of undefined (reading 'unarmored')
+        .map(attack => `${attack} ${this.attackMatrix[attack]?.[unit.defense_type]}%`)
+        .join(' | ')
+    );
   }
 }

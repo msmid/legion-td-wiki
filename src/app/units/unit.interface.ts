@@ -20,7 +20,7 @@ export interface Unit {
   attack_weakness: AttackStrength[];
   base_max_hit: number;
   base_min_hit: number;
-  base_unit_name: string | null;
+  base_unit_name: string[] | null;
   builder: BuilderType;
   builder_id: string;
   can_buff: boolean;
@@ -46,5 +46,5 @@ export interface Unit {
   total_food_cost_with_upgrade: number;
   unit_tier: number;
   upgradeable: boolean;
-  upgraded_name: string[]; // ["tuskarr spearman"]
+  upgraded_name: string[] | null; // ["tuskarr spearman"]
 }

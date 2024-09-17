@@ -1,0 +1,15 @@
+<header class="bg-white shadow">
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <app-page-search (searchChange)="searchKey = $event; handleSearch()"></app-page-search>
+  </div>
+</header>
+
+<main>
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <div class="grid gap-4">
+      <ng-container *ngFor="let group of groups; let i = index">
+        <app-unit-group-row [group]="group"></app-unit-group-row>
+      </ng-container>
+    </div>
+  </div>
+</main>

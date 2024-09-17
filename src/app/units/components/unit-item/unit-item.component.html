@@ -1,114 +1,166 @@
-<div>
-  <div nz-card-grid class="row">
-    <div>
-      <h3
-        *ngIf="withModal; else basicTitle"
+<div class="card card-compact bg-white h-full text-text-primary">
+  <div class="card-body">
+    <div class="flex justify-between items-start">
+      <h2
+        class="card-title capitalize text-slate-500 hover:underline cursor-pointer"
         (click)="showDetailModal()"
-        class="text-capitalize clickable"
       >
         {{ unit.name }}
-      </h3>
-      <ng-template #basicTitle>
-        <h3 class="text-capitalize">
-          {{ unit.name }}
-        </h3>
-      </ng-template>
+      </h2>
+      <div class="flex gap-x-2">
+        <span class="text-orange-300">{{ unit.gold_cost }}</span>
+        <span class="text-red-500">{{ unit.food_cost }}</span>
+      </div>
     </div>
 
-    <div>
-      <span><i nz-icon nzType="dollar" nzTheme="twotone"></i></span>
-      <span>{{ unit.gold_cost }}</span>
-      <span>&nbsp;({{ unit.food_cost }})</span>
-    </div>
-  </div>
+    <!-- Hitpoints / mana -->
+    <div class="flex gap-x-2">
+      <div class="flex items-center gap-x-1 text-2xl">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+          />
+        </svg>
 
-  <div nz-card-grid class="row">
-    <div>
-      <ng-container *ngTemplateOutlet="defense"></ng-container>
-    </div>
-
-    <div>
-      <span>
-        <i nz-icon nzType="heart" nzTheme="twotone"></i>
-      </span>
-      <span class="mr-4">{{ unit.hit_points }}</span>
+        <span>{{ unit.hit_points }}</span>
+      </div>
 
       <ng-container *ngIf="unit.mana">
-        <span>
-          <i nz-icon nzType="heart" nzTheme="twotone"></i>
-        </span>
-        <span>{{ unit.mana }}</span>
+        <div class="flex items-center gap-x-1 text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+            />
+          </svg>
+
+          <span>{{ unit.mana }}</span>
+        </div>
       </ng-container>
     </div>
-  </div>
 
-  <div nz-card-grid class="row">
-    <div>
-      <ng-container *ngTemplateOutlet="attack"></ng-container>
-    </div>
+    <div class="flex flex-col gap-y-2">
+      <!-- Attack -->
+      <div class="flex justify-between">
+        <div class="flex items-center gap-x-2">
+          <div class="tooltip cursor-pointer" [attr.data-tip]="getAttackEffectivenessTip(unit)">
+            <img class="size-10 rounded-lg" src="assets/attack_{{ unit.attack_type }}.png" />
+          </div>
 
-    <div>
-      <span>
-        <i nz-icon nzType="thunderbolt" nzTheme="twotone"></i>
-      </span>
-      <span class="mr-4">{{ unit.base_min_hit }}&nbsp;-&nbsp;{{ unit.base_max_hit }}</span>
-    </div>
-  </div>
+          <div class="flex flex-col items-center">
+            <span class="text-xl font-semibold"
+              >{{ unit.base_min_hit }}&nbsp;-&nbsp;{{ unit.base_max_hit }}</span
+            >
+            <span class="text-xs">{{ unit.attack_type }}</span>
+          </div>
+        </div>
 
-  <div nz-card-grid class="row">
-    <div>
-      <span class="text-capitalize"
-        >{{ unit.attack_speed_class }}&nbsp;({{ unit.attack_speed }})</span
-      >
-    </div>
-
-    <div>
-      <span class="text-capitalize">{{ unit.melee_or_ranged }}&nbsp;({{ unit.range }})</span>
-    </div>
-  </div>
-
-  <div *ngIf="unit.abilities" nz-card-grid [ngStyle]="gridStyle">
-    <span>
-      <i nz-icon nzType="fire" nzTheme="twotone"></i>
-    </span>
-    <span *ngFor="let ability of unit.abilities; let i = index" class="mr-2">
-      <div class="text-capitalize" nzColor="default" nz-tooltip>
-        {{ ability }}
+        <div class="flex flex-col items-end">
+          <span>{{ unit.attack_speed_class }}&nbsp;({{ unit.attack_speed }})</span>
+          <span>{{ unit.melee_or_ranged }}&nbsp;({{ unit.range }})</span>
+        </div>
       </div>
-    </span>
+
+      <!-- Defense -->
+      <div class="flex items-center gap-x-2">
+        <div class="tooltip cursor-pointer" [attr.data-tip]="getDefenseEffectivenessTip(unit)">
+          <img class="size-10 rounded-lg" src="assets/defense_{{ unit.defense_type }}.png" />
+        </div>
+
+        <span class="capitalize text-xl font-semibold">{{ unit.defense_type }}</span>
+      </div>
+    </div>
+
+    <!-- Abilities -->
+    <ng-container *ngIf="unit.abilities && unit.abilities.length > 0">
+      <div class="pt-3">
+        <div class="flex gap-x-1">
+          <ng-container *ngFor="let ability of unit.abilities; let i = index">
+            <div class="tooltip cursor-pointer" [attr.data-tip]="unit.ability_description[i]">
+              <div class="badge badge-info badge-md">
+                {{ ability }}
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
-
-<ng-template #attack>
-  <img nz-tooltip src="assets/attack_{{ unit.attack_type }}.png" />
-
-  <ng-template #tooltip>
-    <span class="d-block">{{ unit.attack_type }}</span>
-    <hr />
-    <span *ngFor="let armor of unit.attack_effectiveness_order" class="d-block">
-      {{ armor }}&nbsp;{{ attackMatrix[unit.attack_type][armor] }}%
-    </span>
-  </ng-template>
-</ng-template>
-
-<ng-template #defense>
-  <img nz-tooltip src="assets/defense_{{ unit.defense_type }}.png" />
-
-  <ng-template #tooltip>
-    <span class="d-block">{{ unit.defense_type }}</span>
-    <hr />
-    <span *ngFor="let attack of unit.defense_effectiveness_order" class="d-block">
-      {{ attack }}&nbsp;{{ attackMatrix[attack][unit.defense_type] }}%
-    </span>
-  </ng-template>
-</ng-template>
-
-<ng-template #extraHeaderTemp>
-  <span><i nz-icon nzType="dollar" nzTheme="twotone"></i></span>
-  <span>{{ unit.gold_cost }}</span>
-  <span>&nbsp;({{ unit.food_cost }})</span>
-</ng-template>
 
 <ng-container *ngIf="withModal">
   <app-unit-detail-modal [unit]="unit" [(isVisible)]="showModal"></app-unit-detail-modal>
 </ng-container>
+
+<ng-template #fireOutline>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="size-6"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z"
+    />
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z"
+    />
+  </svg>
+</ng-template>
+
+<ng-template #shieldOutline>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="size-6"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
+    />
+  </svg>
+</ng-template>
+
+<ng-template #dollarOutline>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="size-6"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+    />
+  </svg>
+</ng-template>

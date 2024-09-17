@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DataService } from 'src/app/units/data.service';
 import { Unit } from '../../unit.interface';
-import { DataServiceService } from 'src/app/units/data-service.service';
 
 @Component({
   selector: 'app-unit-detail-modal',
@@ -14,7 +14,7 @@ export class UnitDetailModalComponent implements OnInit {
 
   upgradeUnits: Unit[] = [];
 
-  constructor(private unitService: DataServiceService) {}
+  constructor(private unitService: DataService) {}
 
   ngOnInit() {
     this.findUpgrades();
@@ -26,9 +26,9 @@ export class UnitDetailModalComponent implements OnInit {
     }
 
     this.unit.upgraded_name?.forEach(unit => {
-      const upgrade = this.unitService.findUpgrades(unit);
-      if (upgrade) {
-        this.upgradeUnits.push(upgrade);
+      const upgrades = this.unitService.findAllUpgradesByName(unit);
+      if (upgrades) {
+        this.upgradeUnits.push(...upgrades);
       }
     });
   }
