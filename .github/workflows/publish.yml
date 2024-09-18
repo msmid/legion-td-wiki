@@ -1,9 +1,14 @@
-name: Deploy Storybook
+name: Publish
 
 on:
   push:
     branches:
       - main
+      - dev
+      - feat/*
+      - fix/*
+      - chore/*
+      - refactor/*
 
 jobs:
   build-and-deploy:
@@ -31,4 +36,4 @@ jobs:
           branch: main # The branch the action should deploy to.
           folder: dist # The folder that the build script generates files.
           clean: true # Automatically remove deleted files from the deploy branch
-          target-folder: dist # The folder that we serve our app files from
+          target-folder: docs # The folder that we serve our app files from
