@@ -30,17 +30,21 @@ export class UnitItemComponent implements OnInit {
   }
 
   getAttackEffectivenessTip(unit: Unit): string {
+    if (unit.attack_type === 'chaos') {
+      return '100%';
+    }
     return unit.attack_effectiveness_order
       .map(armor => `${armor} ${this.attackMatrix[unit.attack_type][armor]}%`)
       .join(' | ');
   }
 
   getDefenseEffectivenessTip(unit: Unit): string {
-    return (
-      unit.defense_effectiveness_order
-        // `[attack]?. because Cannot read properties of undefined (reading 'unarmored')
-        .map(attack => `${attack} ${this.attackMatrix[attack]?.[unit.defense_type]}%`)
-        .join(' | ')
-    );
+    if (unit.defense_type === 'unarmored') {
+      return '100%';
+    }
+
+    return unit.defense_effectiveness_order
+      .map(attack => `${attack} ${this.attackMatrix[attack]?.[unit.defense_type]}%`)
+      .join(' | ');
   }
 }
