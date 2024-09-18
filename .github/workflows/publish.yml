@@ -1,4 +1,4 @@
-name: Deploy Storybook
+name: Publish
 
 on:
   push:
