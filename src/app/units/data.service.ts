@@ -7,6 +7,7 @@ export class DataService {
   private _units: Unit[] = ALL_UNITS;
   private _baseUnits: Unit[] = [];
   private _groups: Unit[][] = [];
+  private _searchTerm = '';
 
   constructor() {
     this.baseUnits = this.findBaseUnits();
@@ -15,6 +16,10 @@ export class DataService {
 
   set baseUnits(units: Unit[]) {
     this._baseUnits = units;
+  }
+
+  set searchTerm(term: string) {
+    this._searchTerm = term;
   }
 
   get baseUnits() {
@@ -27,6 +32,10 @@ export class DataService {
 
   get groups() {
     return this._groups;
+  }
+
+  get searchTerm() {
+    return this._searchTerm;
   }
 
   search({ searchTerm }: { searchTerm: string }): Unit[] {

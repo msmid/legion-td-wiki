@@ -2,10 +2,10 @@
   <div class="card-body">
     <div class="flex justify-between items-start">
       <h2
-        class="card-title capitalize text-slate-500 hover:underline cursor-pointer"
+        class="card-title text-slate-500 hover:underline cursor-pointer"
         (click)="showDetailModal()"
       >
-        {{ unit.name }}
+        <span [innerHTML]="unit.name | highlightText: searchKey"></span>
       </h2>
       <div class="flex gap-x-2">
         <span class="text-orange-300">{{ unit.gold_cost }}</span>

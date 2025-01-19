@@ -11,6 +11,7 @@ export class UnitItemComponent implements OnInit {
   @Input({ required: true }) unit!: Unit;
   @Input() index?: number;
   @Input() withModal = true;
+  @Input() searchKey?: string;
 
   attackMatrix = ATTACK_EFFECTIVENESS_MATRIX;
 

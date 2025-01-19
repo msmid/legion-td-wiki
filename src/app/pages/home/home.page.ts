@@ -22,6 +22,8 @@ export class HomePage implements OnInit {
       this.groups = this.dataService.groups;
     }
 
+    this.dataService.searchTerm = this.searchKey;
+
     this.groups = this.dataService.searchInGroup(this.searchKey);
   }
 }
