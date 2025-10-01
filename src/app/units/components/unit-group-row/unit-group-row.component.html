@@ -1,5 +1,9 @@
-<div class="grid md:grid-cols-3 gap-4">
-  <ng-container *ngFor="let item of unitGroup">
-    <app-unit-item [unit]="item" [searchKey]="dataService.searchTerm"></app-unit-item>
+<div class="grid md:grid-cols-3 gap-5">
+  <ng-container *ngFor="let unit of unitGroup">
+    <app-unit-item [unit]="unit" [searchKey]="dataService.searchTerm"></app-unit-item>
+  </ng-container>
+
+  <ng-container *ngIf="unitGroup.length < 3">
+    <div class="card card-compact bg-gray-50 h-full shadow-sm shadow-sky-100 hidden md:flex"></div>
   </ng-container>
 </div>

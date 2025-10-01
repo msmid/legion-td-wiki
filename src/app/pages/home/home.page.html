@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50 bg-white shadow">
+<header class="sticky top-0 z-50 bg-white shadow-sm shadow-sky-100">
   <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
     <app-page-search (searchChange)="searchKey = $event; handleSearch()"></app-page-search>
   </div>
@@ -6,9 +6,9 @@
 
 <main>
   <div class="mx-auto max-w-7xl md:p-6 lg:px-8">
-    <div class="grid md:gap-4">
+    <div class="grid md:gap-5">
       <ng-container *ngFor="let group of groups; let i = index">
-        <div class="p-4 md:p-0 odd:bg-slate-200 md:bg-transparent md:odd:bg-transparent">
+        <div class="p-4 md:p-0 border-b border-gray-300 md:border-b-0">
           <app-unit-group-row [group]="group"></app-unit-group-row>
         </div>
       </ng-container>

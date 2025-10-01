@@ -17,6 +17,6 @@ export class HighlightTextPipe implements PipeTransform {
       return value;
     }
 
-    return value.replace(regex, `<span class='text-slate-800'>${match[0]}</span>`);
+    return value.replace(regex, `<span class='text-sky-500'>${match[0]}</span>`);
   }
 }

@@ -12,6 +12,13 @@ module.exports = {
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: ['winter', 'night', 'cmyk'],
+    themes: [
+      {
+        winter: {
+          ...require('daisyui/src/theming/themes')['winter'],
+          primary: colors.sky[500],
+        },
+      },
+    ],
   },
 };
