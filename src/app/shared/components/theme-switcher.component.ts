@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'app-theme-switcher',
   standalone: true,
   imports: [CommonModule],
-  template: `<div class="dropdown">
+  template: `<div class="dropdown dropdown-bottom dropdown-end">
     <div tabindex="0" role="button" class="btn btn-ghost m-1">
       <span>Theme</span>
       <svg
