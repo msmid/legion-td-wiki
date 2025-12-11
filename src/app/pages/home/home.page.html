@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-50 bg-white shadow-sm shadow-sky-100">
+<header class="sticky top-0 z-50 bg-base-200 border-b border-base-300">
   <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between">
       <h1 class="text-2xl font-bold hidden md:block">LegionTD Units</h1>
@@ -9,12 +9,10 @@
 </header>
 
 <main>
-  <button class="btn btn-primary">Button</button>
-
   <div class="mx-auto max-w-7xl md:p-6 lg:px-8">
     <div class="grid md:gap-5">
       <ng-container *ngFor="let group of groups; let i = index">
-        <div class="p-4 md:p-0 border-b border-gray-300 md:border-b-0">
+        <div class="p-4 md:p-0 border-b border-base-300 md:border-b-0">
           <app-unit-group-row [group]="group"></app-unit-group-row>
         </div>
       </ng-container>

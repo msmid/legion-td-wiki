@@ -3,3 +3,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+html {
+  @apply h-full bg-base-100 overscroll-y-none;
+}
+
+body {
+  @apply h-full;
+}
