@@ -4,19 +4,15 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-page-search',
   standalone: true,
   template: `
-    <div class="flex items-center justify-between">
-      <h1 class="text-2xl font-bold hidden md:block">LegionTD Units</h1>
-      <label class="input bg-sky-50 flex items-center gap-2 min-w-full sm:min-w-[350px]">
-        <input
-          (input)="onSearch($event)"
-          placeholder="Search..."
-          type="text"
-          class="grow placeholder:text-sky-500"
-          placeholder="Search"
-        />
-      </label>
-      <h1 class="text-2xl font-bold opacity-0 hidden md:block">LegionTD Units</h1>
-    </div>
+    <label class="input bg-sky-50 flex items-center gap-2 min-w-full sm:min-w-[350px]">
+      <input
+        (input)="onSearch($event)"
+        placeholder="Search..."
+        type="text"
+        class="grow placeholder:text-sky-500"
+        placeholder="Search"
+      />
+    </label>
   `,
   styles: [
     `
