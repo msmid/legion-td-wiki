@@ -27,7 +27,10 @@ export class UnitItemComponent implements OnInit {
   ngOnInit() {}
 
   showDetailModal() {
-    this.showModal = !this.showModal;
+    const modal = document.getElementById(`${this.unit.id}-modal`);
+    if (modal && this.withModal) {
+      (modal as HTMLDialogElement).showModal();
+    }
   }
 
   getAttackEffectivenessTip(unit: Unit): string {

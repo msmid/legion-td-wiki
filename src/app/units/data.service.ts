@@ -201,4 +201,20 @@ export class DataService {
 
     return upgrades.filter(Boolean) as Unit[];
   }
+
+  /**
+   * Return collection of units upgrades for a given unit.
+   */
+  getCollection(unit: Unit) {
+    // Get all upgrades for a unit
+    const upgrades = this.findAllUpgradesByName(unit.name);
+
+    // Get all previous upgrades for a unit
+    const previous = this.findAllPreviousUpgrades(unit);
+
+    console.log(unit.name, [...previous, ...upgrades]);
+
+
+    return [...previous, ...upgrades];
+  }
 }

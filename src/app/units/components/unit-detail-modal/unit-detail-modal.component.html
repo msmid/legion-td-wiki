@@ -1,19 +1,22 @@
-<div (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-  <ng-container *nzModalContent>
-    <div>
-      <div nz-col nzSpan="12">
+<dialog [attr.id]="unit.id + '-modal'" class="modal">
+    <div class="modal-box flex flex-col gap-4">
+      <div>
         <app-unit-item [unit]="unit" [withModal]="false"></app-unit-item>
       </div>
-      <div nz-col nzSpan="12">
+      <div>
         <ng-container *ngIf="upgradeUnits && upgradeUnits.length > 0">
           <ng-container *ngFor="let unit of upgradeUnits">
             <div class="upgrade-unit-wrapper mb-4">
               <i nz-icon nzType="caret-right" nzTheme="outline"></i>
-              <app-unit-item [unit]="unit" [withModal]="false"></app-unit-item>
+              <app-unit-item [unit]="unit" [withModal]="false" class="w-full"></app-unit-item>
             </div>
           </ng-container>
         </ng-container>
       </div>
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn">Close</button>
+        </form>
+      </div>
     </div>
-  </ng-container>
-</div>
+</dialog>

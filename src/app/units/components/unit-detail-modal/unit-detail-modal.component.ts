@@ -21,16 +21,8 @@ export class UnitDetailModalComponent implements OnInit {
   }
 
   findUpgrades() {
-    if (!this.unit.upgradeable) {
-      return;
-    }
-
-    this.unit.upgraded_name?.forEach(unit => {
-      const upgrades = this.unitService.findAllUpgradesByName(unit);
-      if (upgrades) {
-        this.upgradeUnits.push(...upgrades);
-      }
-    });
+    const upgrades = this.unitService.getCollection(this.unit);
+    this.upgradeUnits.push(...upgrades);
   }
 
   handleCancel() {
